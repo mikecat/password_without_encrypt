@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<title>暗号化せずにパスワードを設定する</title>
+<link href="pwe.css" rel="stylesheet">
+<script src="pwe.js"></script>
+</head>
+<body>
+<h1>暗号化せずにパスワードを設定する</h1>
+<form id="mainForm" method="POST" action="https://999.999.999.999/" onsubmit="return false;">
+<div class="table-div">
+<p>
+<span>対象ファイル</span><span><input type="file" name="inputFile" disabled="true"></span>
+</p><p>
+<span>パスワード</span><span><input type="password" name="password1" size="40" disabled="true"></span>
+</p><p>
+<span>パスワードの確認</span><span><input type="password" name="password2" size="40" disabled="true"></span>
+</p><p>
+<span><a id="downloader" style="display: none;"></a></span>
+<span><input type="submit" name="submit" value="変換実行" disabled="true">
+<span id="statusField" data-status="">
+<span data-error="templateLoadError">テンプレートの読み込みに失敗しました。</span>
+<span data-error="passwordMismatch">パスワードが一致しません。</span>
+<span data-error="noFileSelected">ファイルが選択されていません。</span>
+<span data-error="fileLoadError">ファイルの読み込みに失敗しました。</span>
+</span></span>
+</p>
+</div>
+</form>
+
+<h2>これは何？</h2>
+<p>
+ファイルを暗号化せずにパスワードを設定します。<br>
+変換結果は、正しいパスワードが入力されるともとのファイルを保存できるHTMLファイルとなります。
+</p><p>
+<a href="https://twitter.com/hasegaw/status/1546732333432127488">「添付ファイルにパスワードを設定して送信」したい乙と「暗号化されたファイルは受け取れない」甲に関するツイート</a>を見て思いつきました。
+</p>
+
+<h2>例</h2>
+
+<ul>
+<li><a href="examples/lorem.pdf.html">lorem.pdf.html</a> (パスワード: <code>P@ssw0rd</code>)</li>
+</ul>
+
+</body>
+</html>

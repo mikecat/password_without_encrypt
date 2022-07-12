@@ -1,0 +1,40 @@
+.table-div {
+	display: table;
+}
+
+.table-div > p {
+	display: table-row;
+}
+
+.table-div > p > span {
+	display: table-cell;
+}
+
+.table-div > p > span:first-child {
+	padding-right: 1em;
+}
+
+.table-div > p:not(:first-child) > span {
+	padding-top: 0.5em;
+}
+
+#statusField * {
+	display: none;
+}
+
+#statusField[data-status="templateLoadError"] [data-error="templateLoadError"] {
+	display: inline;
+}
+
+#statusField[data-status="passwordMismatch"] [data-error="passwordMismatch"] {
+	display: inline;
+}
+
+#statusField[data-status="noFileSelected"] [data-error="noFileSelected"] {
+	display: inline;
+}
+
+
+#statusField[data-status="fileLoadError"] [data-error="fileLoadError"] {
+	display: inline;
+}

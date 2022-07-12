@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<title>{{filename-html}}</title>
+<script>
+"use strict";
+window.addEventListener("DOMContentLoaded", function() {
+	const fileData = "{{filedata-base64}}";
+	const passwordData = "{{password-raw-js}}";
+	let unlocked = false;
+
+	const mainForm = document.getElementById("mainForm");
+	const prompt = document.getElementById("prompt");
+	const saveFile = document.getElementById("saveFile");
+	mainForm.password.addEventListener("input", function() {
+		prompt.setAttribute("data-error", "0");
+		prompt.innerText = "パスワードを入力してください。";
+	});
+	mainForm.addEventListener("submit", function(e) {
+		e.preventDefault();
+		if (unlocked) return;
+		const passwordEntered = mainForm.password.value;
+		const passwordVerified = passwordEntered === passwordData;
+		if (passwordVerified) {
+			prompt.innerText = "パスワードを確認しました。";
+			mainForm.password.blur();
+			mainForm.password.disabled = true;
+			mainForm.submit.disabled = true;
+			unlocked = true;
+
+			const fileDataDecoded = atob(fileData);
+			const fileDataArray = new Uint8Array(fileDataDecoded.length);
+			for (let i = 0; i < fileDataDecoded.length; i++) {
+				fileDataArray[i] = fileDataDecoded.charCodeAt(i);
+			}
+			const fileBlob = new Blob([fileDataArray.buffer]);
+			const aElement = document.createElement("a");
+			aElement.setAttribute("download", saveFile.innerText);
+			aElement.setAttribute("href", URL.createObjectURL(fileBlob));
+			aElement.appendChild(document.createTextNode(saveFile.innerText));
+			saveFile.parentNode.replaceChild(aElement, saveFile);
+		} else {
+			prompt.setAttribute("data-error", "1");
+			prompt.innerText = "パスワードが違います。";
+		}
+	});
+});
+</script>
+<style>
+#prompt[data-error="1"] {
+	color: red;
+}
+</style>
+</head>
+<body>
+<form id="mainForm" method="POST" action="https://999.999.999.999/" onsubmit="return false;">
+<p>
+<input type="password" size="40" name="password" style="margin-right: 0.5em;">
+<input type="submit" name="submit" value="決定">
+</p>
+</form>
+<p id="prompt" data-error="0">パスワードを入力してください。</p>
+<p>ファイルを保存:<span id="saveFile">{{filename-html}}</span></p>
+</body>
+</html>
